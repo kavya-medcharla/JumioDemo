@@ -7,11 +7,9 @@ builder.Services.AddAccessTokenManagement(options =>
 {
     var tokenReq = new ClientCredentialsTokenRequest
     {
-        Address = @"https://auth.amer-1.jumio.ai/oauth2/token",
-        //ClientId = "9e12b4ac-3f7b-489e-ba88-b65bc31de693",
-        //ClientSecret = "ErOo0Fr0VKVxtkN1P36JBSQjN1s0KJFN"
+        Address = @"https://auth.amer-1.jumio.ai/oauth2/token"
     };
-    tokenReq.Headers.Authorization = new BasicAuthenticationHeaderValue("9e12b4ac-3f7b-489e-ba88-b65bc31de693", "ErOo0Fr0VKVxtkN1P36JBSQjN1s0KJFN");
+    tokenReq.Headers.Authorization = new BasicAuthenticationHeaderValue("", "");
     options.Client.Clients.Add("jumio", tokenReq);
 });
 builder.Services.AddClientAccessTokenHttpClient("jumio", configureClient: client =>
