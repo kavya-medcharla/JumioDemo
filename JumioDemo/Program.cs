@@ -5,13 +5,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddAccessTokenManagement(options =>
 {
-    var tokenReq = new ClientCredentialsTokenRequest
+    var jumioTokenReq = new ClientCredentialsTokenRequest
     {
         Address = @"https://auth.amer-1.jumio.ai/oauth2/token",
-        ClientId = "5veol8gds3lr5a9p564cam90u3",
-        ClientSecret = "202cgdtb1d75j2m6hel4p96bsmahq0jbk8mm6tbd76cnl10791u"
+        ClientId = "GetFromVault",
+        ClientSecret = "GetFromVault"
     };
-    options.Client.Clients.Add("jumio", tokenReq);
+    options.Client.Clients.Add("jumio", jumioTokenReq);
+    //options.Client.Clients.Add("axle", axleTokenReq);
 });
 builder.Services.AddClientAccessTokenHttpClient("jumio", configureClient: client =>
 {
@@ -22,6 +23,16 @@ builder.Services.AddClientAccessTokenHttpClient("jumioRetrieval", configureClien
 {
     client.BaseAddress = new Uri("https://retrieval.amer-1.jumio.ai/api/v1/");
     client.DefaultRequestHeaders.UserAgent.ParseAdd("Lula Technologies");
+});
+//builder.Services.AddClientAccessTokenHttpClient("axle", configureClient: client =>
+//{
+//    client.BaseAddress = new Uri("https://sandbox.axle.insure");
+//});
+builder.Services.AddHttpClient("axle", client =>
+{
+    client.BaseAddress = new Uri("https://sandbox.axle.insure/");
+    client.DefaultRequestHeaders.Add("x-client-id", "GetFromVault");
+    client.DefaultRequestHeaders.Add("x-client-secret", "GetFromVault");
 });
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
